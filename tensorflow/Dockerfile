@@ -72,6 +72,10 @@ RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.3.0.tar.gz | tar
     bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg && \
     pip3.6 install /tmp/tensorflow_pkg/tensorflow-1.3.0-cp36-cp36m-linux_x86_64.whl
 
+RUN pip3.6 install --no-cache-dir \
+      bleach>=2.0 \
+      html5lib>=0.99999999
+
 RUN apt-get purge --autoremove \
       autoconf \
       automake \
