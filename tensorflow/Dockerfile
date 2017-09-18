@@ -56,6 +56,9 @@ RUN pip3.6 install --no-cache-dir \
 
 RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.3.0.tar.gz | tar -xz && \
     cd tensorflow* && \
+    # HACK: Temporarily remove SHA256 checksums because reasons.
+    # ¯\_(ツ)_/¯ https://github.com/tensorflow/tensorflow/issues/12979
+    sed -ri "/^\W+sha256 = \"[^\"]+\"\W+$/d" tensorflow/workspace.bzl && \
     source /tmp/build/tensorflow-env && ./configure && \
     bazel build \
       --config=opt \
