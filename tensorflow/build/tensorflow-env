@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-export PYTHON_BIN_PATH="$(which python3.6)"
+export PYTHON_BIN_PATH="$(which python3)"
 export PYTHON_LIB_PATH="$(${PYTHON_BIN_PATH} -c 'import site; print(site.getsitepackages()[0])')"
 
 export TF_NEED_CUDA=0
 
-if [ -n ${CUDA_VERSION} ]; then
+if [ -n "${CUDA_VERSION}" ]; then
   export TF_NEED_CUDA=1
   export TF_CUDA_CLANG=0
   export TF_CUDA_COMPUTE_CAPABILITIES=3.5,5.2,6.1
