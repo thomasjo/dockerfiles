@@ -73,7 +73,6 @@ RUN apt-get purge --autoremove -y \
       autoconf \
       automake \
       bazel \
-      build-essential \
       ca-certificates \
       curl \
       libtool \
