@@ -39,15 +39,15 @@ RUN curl -L https://github.com/google/protobuf/archive/v3.4.0.tar.gz | tar -xz &
     python3 setup.py install --cpp_implementation
 
 # Build dependencies for TensorFlow.
-RUN echo "deb http://storage.googleapis.com/bazel-apt stable jdk1.8" | \
-    tee /etc/apt/sources.list.d/bazel.list && \
-    curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
-    apt-get update && apt-get install -y \
-      bazel \
+RUN apt-get update && apt-get install -y \
+      bash-completion \
       openjdk-8-jdk \
       python \
+      zlib1g-dev \
       && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    curl -LO https://github.com/bazelbuild/bazel/releases/download/0.5.4/bazel_0.5.4-linux-x86_64.deb && \
+    dpkg -i bazel*.deb
 
 RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.3.0.tar.gz | tar -xz && \
     cd tensorflow* && \
@@ -72,6 +72,7 @@ RUN pip3 install --no-cache-dir \
 RUN apt-get purge --autoremove -y \
       autoconf \
       automake \
+      bash-completion \
       bazel \
       ca-certificates \
       curl \
@@ -81,6 +82,7 @@ RUN apt-get purge --autoremove -y \
       python3-dev \
       software-properties-common \
       unzip \
+      zlib1g-dev \
       && \
     rm -rf /etc/apt/sources.list.d/*
 
