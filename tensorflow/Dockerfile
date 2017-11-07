@@ -43,14 +43,11 @@ RUN apt-get update && apt-get install -y \
     python \
     zlib1g-dev \
 &&  rm -rf /var/lib/apt/lists/* \
-&&  curl -LO https://github.com/bazelbuild/bazel/releases/download/0.5.4/bazel_0.5.4-linux-x86_64.deb \
+&&  curl -LO https://github.com/bazelbuild/bazel/releases/download/0.7.0/bazel_0.7.0-linux-x86_64.deb \
 &&  dpkg -i bazel*.deb
 
-RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.3.0.tar.gz | tar -xz \
+RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.4.0.tar.gz | tar -xz \
 &&  cd tensorflow* \
-    # HACK: Temporarily remove SHA256 checksums because reasons.
-    # ¯\_(ツ)_/¯ https://github.com/tensorflow/tensorflow/issues/12979
-&&  sed -ri "/^\W+sha256 = \"[^\"]+\"\W+$/d" tensorflow/workspace.bzl \
 &&  pip3 install --no-cache-dir numpy \
 &&  source /tmp/build/tensorflow-env && ./configure \
 &&  bazel build \
