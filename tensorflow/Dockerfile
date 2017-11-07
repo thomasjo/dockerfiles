@@ -46,6 +46,12 @@ RUN apt-get update && apt-get install -y \
 &&  curl -LO https://github.com/bazelbuild/bazel/releases/download/0.7.0/bazel_0.7.0-linux-x86_64.deb \
 &&  dpkg -i bazel*.deb
 
+# With recent versions of TensorFlow, we unfortunately have to provide the
+# container access to NVIDIA drivers and libraries at build time.
+# Sadly Docker does not follow symlinks, so the hacky solution is therefore:
+# $ mount --bind <nvidia-docker driver mointpoint> mnt/nvidia_driver
+ADD mnt/nvidia_driver /usr/local/nvidia
+
 RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.4.0.tar.gz | tar -xz \
 &&  cd tensorflow* \
 &&  pip3 install --no-cache-dir numpy \
@@ -57,6 +63,9 @@ RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.4.0.tar.gz | tar
     tensorflow/tools/pip_package/build_pip_package \
 &&  bazel-bin/tensorflow/tools/pip_package/build_pip_package $PWD \
 &&  pip3 install "$(ls -1 tensorflow*.whl | head -n 1)"
+
+# Remove temporary "nvidia-docker" volume clone.
+RUN rm -rf /usr/local/nvidia
 
 # Ensure compatible combination of bleach and html5lib.
 RUN pip3 install --no-cache-dir \
