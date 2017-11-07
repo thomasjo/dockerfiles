@@ -15,6 +15,7 @@ docker build \
 
 Sadly, with recent versions of TensorFlow, we need to provide the container access to the NVIDIA driver infrastructure during build time. Since Docker does not support volume mounting during build phase, and does not follow symlinks, we are forced to work around the issue by relying on `mount --bind`. Therefore, before building a container image with GPU support, ensure you execute
 ```
+mkdir -p mnt/nvidia_driver
 mount --bind <nvidia-docker driver mountpoint> mnt/nvidia_driver
 ```
 
