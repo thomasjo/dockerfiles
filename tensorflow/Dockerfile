@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
 &&  rm -rf /var/lib/apt/lists/*
 
-RUN curl -L https://github.com/google/protobuf/archive/v3.4.0.tar.gz | tar -xz \
+RUN curl -L https://github.com/google/protobuf/archive/v3.5.1.tar.gz | tar -xz \
 &&  cd protobuf* \
 &&  ./autogen.sh \
 &&  ./configure \
@@ -43,10 +43,10 @@ RUN apt-get update && apt-get install -y \
     python \
     zlib1g-dev \
 &&  rm -rf /var/lib/apt/lists/* \
-&&  curl -LO https://github.com/bazelbuild/bazel/releases/download/0.7.0/bazel_0.7.0-linux-x86_64.deb \
+&&  curl -LO https://github.com/bazelbuild/bazel/releases/download/0.9.0/bazel_0.9.0-linux-x86_64.deb \
 &&  dpkg -i bazel*.deb
 
-RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.4.0.tar.gz | tar -xz \
+RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.5.0.tar.gz | tar -xz \
 &&  cd tensorflow* \
 &&  pip3 install --no-cache-dir numpy \
 &&  source /tmp/build/tensorflow-env && ./configure \
