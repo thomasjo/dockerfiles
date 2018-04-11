@@ -56,7 +56,7 @@ RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.7.0.tar.gz | tar
     ${CUDA_VERSION:+--config=cuda} \
     tensorflow/tools/pip_package/build_pip_package \
 &&  bazel-bin/tensorflow/tools/pip_package/build_pip_package $PWD \
-&&  pip3 install "$(ls -1 tensorflow*.whl | head -n 1)"
+&&  pip3 install --no-cache-dir "$(ls -1 tensorflow*.whl | head -n 1)"
 
 # Ensure compatible combination of bleach and html5lib.
 RUN pip3 install --no-cache-dir \
@@ -79,5 +79,5 @@ RUN apt-get purge --autoremove -y \
     zlib1g-dev \
 &&  rm -rf /etc/apt/sources.list.d/*
 
-RUN rm -rf /tmp/*
+RUN rm -rf /tmp/* /root/.cache
 WORKDIR /
