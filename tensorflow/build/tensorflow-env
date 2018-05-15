@@ -6,6 +6,8 @@ export CC_OPT_FLAGS="-march=native -mfpmath=both"
 export PYTHON_BIN_PATH="$(which python3)"
 export PYTHON_LIB_PATH="$(${PYTHON_BIN_PATH} -c 'import site; print(site.getsitepackages()[0])')"
 
+# These TensorFlow environment variables can be found at
+# https://github.com/tensorflow/tensorflow/blob/v1.8.0/configure.py
 export TF_DOWNLOAD_MKL=0
 export TF_ENABLE_XLA=0
 export TF_NEED_COMPUTECPP=0
