@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y \
 &&  curl -LO https://github.com/bazelbuild/bazel/releases/download/0.11.1/bazel_0.11.1-linux-x86_64.deb \
 &&  dpkg -i bazel*.deb
 
-RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.7.0.tar.gz | tar -xz \
+RUN curl -L https://github.com/tensorflow/tensorflow/archive/v1.8.0.tar.gz | tar -xz \
 &&  cd tensorflow* \
 &&  pip3 install --no-cache-dir numpy \
 &&  source /tmp/build/tensorflow-env && ./configure \
